@@ -1,0 +1,27 @@
+<?php
+if(!session_id()){
+    session_start();
+}
+?>
+<?php
+include "connect.php";
+include "functions.php";
+$username = $_POST['username'];
+$password1 = $_POST['password1'];
+$password2 = $_POST['password2'];
+if (!($password1 === $password2)) {
+    $_SESSION['newuser_error'] = True;
+    header("Location: ../public/newuser.php");
+}
+else {
+    $sql = "INSERT INTO users (username, hashed_password) VALUES (:username, :password);";
+    $statement = $db->prepare($sql);
+    $statement->bindParam(':username', $_POST['username']);
+    $statement->bindParam(':password', passwordEncrypt($_POST['password1']));
+    $statement->execute();
+    $db = null;
+    $_SESSION['username'] = $username;
+    $_SESSION['newuser_error'] = False;
+    header("Location: ../public/dashboard.php");
+}
+?>
