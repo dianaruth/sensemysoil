@@ -1,7 +1,5 @@
 <?php
-if(!session_id()){
-    session_start();
-}
+include "../application/header.php";
 ?>
 
 <!DOCTYPE html>
@@ -26,10 +24,11 @@ if(!session_id()){
     <!-- Custom CSS -->
     <link href="../application/dist/css/sb-admin-2.css" rel="stylesheet">
     <link href="../application/dist/css/dirt.css" rel="stylesheet">
+    <link href="../application/dist/css/dashboard.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="../library/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    
+
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script src="../application/js/chart-functions.js"></script>
 
@@ -64,8 +63,9 @@ if(!session_id()){
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="index.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
+                        <form name="logout" action="../application/logout.php" method="post">
+                            <li><a onclick="logout.submit();"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                        </form>
                     </ul>
                 </li>
             </ul>

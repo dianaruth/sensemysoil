@@ -15,10 +15,24 @@ if(!session_id()){
         <script src="//use.edgefonts.net/piedra;rock-salt.js"></script>
     </head>
     <body>
-        <div class="container" id="login-panel">
+        <div class="container" id="login-panel" style="margin-top: 8%;">
             <h1 id="login-title">Sign Up for Sense My Soil</h1>
             <?php if ($_SESSION['newuser_error']) echo "<div class=\"alert alert-danger\"><strong>Passwords do not match.</strong></div>"; ?>
             <form action="../application/addnewuser.php" method="post">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+                            <input name="firstName" type="text" class="form-control" placeholder="First Name" aria-describedby="basic-addon1" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+                            <input name="lastName" type="text" class="form-control" placeholder="Last Name" aria-describedby="basic-addon1" required>
+                        </div>
+                    </div>
+                </div>
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
                     <input name="username" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" required>
@@ -41,8 +55,8 @@ if(!session_id()){
 
         <!-- Bootstrap Core JavaScript -->
         <script src="../library/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        
+
         <script src="../application/dist/js/dirt.js"></script>
-        
+
     </body>
 </html>
