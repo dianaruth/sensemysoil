@@ -95,7 +95,7 @@ include "../application/header.php";
             <div class="container-fluid" id="current_readings">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Welcome, Old McDonald!</h1>
+                        <h1 class="page-header">Welcome, <?php echo $_SESSION['first_name']; ?>!</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
