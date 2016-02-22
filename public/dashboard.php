@@ -30,7 +30,6 @@ include "../application/header.php";
     <link href="../library/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script src="../application/js/chart-functions.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -41,7 +40,7 @@ include "../application/header.php";
 
 </head>
 
-<body>
+<body onload="showCurrentReadings()">
 
     <div id="wrapper">
 
@@ -74,16 +73,16 @@ include "../application/header.php";
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="dashboard.php"><i class="fa fa-dashboard fa-fw"></i> Current Readings</a>
+                            <a class="clickable" onclick="showCurrentReadings()"><i class="fa fa-dashboard fa-fw"></i> Current Readings</a>
                         </li>
                         <li>
-                            <a class="clickable" id="temperature"><i class="fa fa-dashboard fa-fw"></i> Temperature</a>
+                            <a class="clickable" onclick="showTemperature()"><i class="fa fa-dashboard fa-fw"></i> Temperature</a>
                         </li>
                         <li>
-                            <a class="clickable" id="moisture"><i class="fa fa-dashboard fa-fw"></i> Moisture</a>
+                            <a class="clickable" onclick="showMoisture()"><i class="fa fa-dashboard fa-fw"></i> Moisture</a>
                         </li>
                         <li>
-                            <a class="clickable" id="salinity"><i class="fa fa-dashboard fa-fw"></i> Salinity</a>
+                            <a class="clickable" onclick="showSalinity()"><i class="fa fa-dashboard fa-fw"></i> Salinity</a>
                         </li>
                     </ul>
                 </div>
@@ -102,189 +101,27 @@ include "../application/header.php";
                 <div class="row">
                     <div class="col-lg-offset-1 col-lg-2 col-lg-offset-9">
                         <label>Select Probe</label>
-                        <select class="form-control" id="probes">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
+                        <select class="form-control" name="probes" onchange="showReadings(this.value)">
+                            <option value="">Select a probe:</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
                         </select>
                     </div>
                 </div>
                 <br>
-                <div id="probe1readings">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    Salinity
-                                </div>
-                                <div class="panel-body">
-                                    <h1>35 ppt</h1>
-                                </div>
-                                <div class="panel-footer">
-                                    Last Checked: 4:51 PM
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    Moisture
-                                </div>
-                                <div class="panel-body">
-                                    <h1>80%</h1>
-                                </div>
-                                <div class="panel-footer">
-                                    Last Checked: 4:51 PM
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    Temperature
-                                </div>
-                                <div class="panel-body">
-                                    <h1>85</h1>
-                                </div>
-                                <div class="panel-footer">
-                                    Last Checked: 4:51 PM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="probe2readings">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    Salinity
-                                </div>
-                                <div class="panel-body">
-                                    <h1>38 ppt</h1>
-                                </div>
-                                <div class="panel-footer">
-                                    Last Checked: 4:51 PM
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    Moisture
-                                </div>
-                                <div class="panel-body">
-                                    <h1>81%</h1>
-                                </div>
-                                <div class="panel-footer">
-                                    Last Checked: 4:51 PM
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    Temperature
-                                </div>
-                                <div class="panel-body">
-                                    <h1>82</h1>
-                                </div>
-                                <div class="panel-footer">
-                                    Last Checked: 4:51 PM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="probe3readings">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    Salinity
-                                </div>
-                                <div class="panel-body">
-                                    <h1>40 ppt</h1>
-                                </div>
-                                <div class="panel-footer">
-                                    Last Checked: 4:51 PM
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    Moisture
-                                </div>
-                                <div class="panel-body">
-                                    <h1>78%</h1>
-                                </div>
-                                <div class="panel-footer">
-                                    Last Checked: 4:51 PM
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    Temperature
-                                </div>
-                                <div class="panel-body">
-                                    <h1>81</h1>
-                                </div>
-                                <div class="panel-footer">
-                                    Last Checked: 4:51 PM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="probe4readings">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    Salinity
-                                </div>
-                                <div class="panel-body">
-                                    <h1>36 ppt</h1>
-                                </div>
-                                <div class="panel-footer">
-                                    Last Checked: 4:51 PM
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    Moisture
-                                </div>
-                                <div class="panel-body">
-                                    <h1>87%</h1>
-                                </div>
-                                <div class="panel-footer">
-                                    Last Checked: 4:51 PM
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    Temperature
-                                </div>
-                                <div class="panel-body">
-                                    <h1>86</h1>
-                                </div>
-                                <div class="panel-footer">
-                                    Last Checked: 4:51 PM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="probe_readings"></div>
             </div>
-            <div class="container-fluid" id="chart"></div>
+            <div class="container-fluid" id="temperature">
+                Temperature
+            </div>
+            <div class="container-fluid" id="moisture">
+                Moisture
+            </div>
+            <div class="container-fluid" id="salinity">
+                Salinity
+            </div>
         </div>
 
     </div>
