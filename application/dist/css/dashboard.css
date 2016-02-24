@@ -10,3 +10,8 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+#temperature, #moisture, #salinity {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}

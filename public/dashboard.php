@@ -76,13 +76,13 @@ include "../application/header.php";
                             <a class="clickable" onclick="showCurrentReadings()"><i class="fa fa-dashboard fa-fw"></i> Current Readings</a>
                         </li>
                         <li>
-                            <a class="clickable" onclick="showTemperature()"><i class="fa fa-dashboard fa-fw"></i> Temperature</a>
+                            <a class="clickable" onclick="showTemperature()"><i class="fa fa-sun-o fa-fw"></i> Temperature</a>
                         </li>
                         <li>
-                            <a class="clickable" onclick="showMoisture()"><i class="fa fa-dashboard fa-fw"></i> Moisture</a>
+                            <a class="clickable" onclick="showMoisture()"><i class="fa fa-cloud fa-fw"></i> Moisture</a>
                         </li>
                         <li>
-                            <a class="clickable" onclick="showSalinity()"><i class="fa fa-dashboard fa-fw"></i> Salinity</a>
+                            <a class="clickable" onclick="showSalinity()"><i class="fa fa-flask fa-fw"></i> Salinity</a>
                         </li>
                     </ul>
                 </div>
@@ -113,15 +113,9 @@ include "../application/header.php";
                 <br>
                 <div id="probe_readings"></div>
             </div>
-            <div class="container-fluid" id="temperature">
-                Temperature
-            </div>
-            <div class="container-fluid" id="moisture">
-                Moisture
-            </div>
-            <div class="container-fluid" id="salinity">
-                Salinity
-            </div>
+            <div class="container-fluid" id="temperature"></div>
+            <div class="container-fluid" id="moisture"></div>
+            <div class="container-fluid" id="salinity"></div>
         </div>
 
     </div>
@@ -139,6 +133,7 @@ include "../application/header.php";
     <!-- Custom Theme JavaScript -->
     <script src="../application/dist/js/sb-admin-2.js"></script>
     <script src="../application/dist/js/dirt.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </body>
 

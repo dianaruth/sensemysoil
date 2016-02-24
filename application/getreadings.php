@@ -2,7 +2,7 @@
 include "functions.php";
 include "connect.php";
 $q = intval($_GET['q']);
-$sql = "SELECT temperature, moisture, salinity, reading_time FROM soil_data WHERE probe = :probe ORDER BY reading_time LIMIT 1";
+$sql = "SELECT temperature, moisture, salinity, reading_time FROM soil_data WHERE probe = :probe ORDER BY reading_time DESC LIMIT 1";
 $statement = $db->prepare($sql);
 $statement->bindParam(':probe', $q);
 $statement->execute();
