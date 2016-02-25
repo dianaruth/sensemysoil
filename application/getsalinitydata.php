@@ -1,7 +1,9 @@
 <?php
 include "functions.php";
 include "connect.php";
-$sql = "SELECT salinity, reading_time, probe FROM soil_data ORDER BY reading_time, probe ASC";
+$s = $_GET['s'];
+$e = $_GET['e'];
+$sql = "SELECT salinity, reading_time, probe FROM soil_data WHERE reading_time BETWEEN " . $s . " AND " . $e . " ORDER BY reading_time, probe ASC";
 $statement = $db->prepare($sql);
 $statement->execute();
 if ($readings = $statement->fetchAll()) {

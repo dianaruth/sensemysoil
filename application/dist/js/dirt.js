@@ -1,6 +1,61 @@
 google.load('visualization', '1', {packages: ['line']});
 google.setOnLoadCallback(showCurrentReadings);
 
+var reading = "";
+
+// initialize datepickers
+function initializeDatepickers() {
+    var today = new Date();
+    var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate()-3, today.getHours(), today.getMinutes(), today.getSeconds());
+    $('#date1').datetimepicker({
+        defaultDate: lastWeek,
+        sideBySide: true,
+        showTodayButton: true,
+        showClose: true
+    });
+    $('#date2').datetimepicker({
+        useCurrent: false, //Important! See issue #1075
+        defaultDate: Date.now(),
+        sideBySide: true,
+        showTodayButton: true,
+        showClose: true
+    });
+    var date1, date2;
+    $("#date1").on("dp.hide", function (e) {
+        $('#date1').data("DateTimePicker").date(e.date);
+        if (reading == "temperature") {
+            temperatureChart();
+        }
+        else if (reading == "moisture") {
+            moistureChart();
+        }
+        else if (reading == "salinity") {
+            salinityChart();
+        }
+    });
+    $("#date2").on("dp.hide", function (e) {
+        $('#date2').data("DateTimePicker").date(e.date);
+        if (reading == "temperature") {
+            temperatureChart();
+        }
+        else if (reading == "moisture") {
+            moistureChart();
+        }
+        else if (reading == "salinity") {
+            salinityChart();
+        }
+    });
+}
+
+function getDateString(date) {
+    return date.getFullYear() + "-" + ((date.getMonth() + 1) < 10 ? '0' : '')
+        + (date.getMonth() + 1) + "-" + (date.getDate() < 10 ? '0' : '')
+        + date.getDate() + " " + (date.getHours() < 10 ? '0' : '')
+        + date.getHours() + ":" + (date.getMinutes() < 10 ? '0' : '')
+        + date.getMinutes() + ":" + (date.getSeconds() < 10 ? '0' : '')
+        + date.getSeconds();
+}
+
 function showReadings(probeNum) {
     if (probeNum == "") {
         document.getElementById("probe_readings").innerHTML = "";
@@ -25,23 +80,25 @@ function showReadings(probeNum) {
 
 function showCurrentReadings() {
     $("#current_readings").show();
-    $("#temperature").hide();
-    $("#moisture").hide();
-    $("#salinity").hide();
+    $("#chart").hide();
 }
 
-function showTemperature() {
+function temperatureChart() {
     $("#current_readings").hide();
-    $("#temperature").show();
-    $("#moisture").hide();
-    $("#salinity").hide();
+    $("#chart").show();
+    reading = "temperature";
+    var date1 = new Date($('#date1').data("DateTimePicker").date()["_d"]);
+    var date2 = new Date($('#date2').data("DateTimePicker").date()["_d"]);
+    var u = "../application/gettemperaturedata.php?s='"
+        + getDateString(date1) + "'&e='"
+        + getDateString(date2) + "'";
     $.ajax({
         type: 'POST',
-        url: '../application/gettemperaturedata.php',
+        url: u,
         cache: false,
         success: function(data){
             if (data == "") {
-                $("#temperature").append("<h3>There is no data for the specified date range.</h3>");
+                document.getElementById("chart-add").innerHTML = "<h3>There is no data for the specified date range.</h3>";
             }
             else {
                 json = JSON.parse(data);
@@ -91,28 +148,32 @@ function showTemperature() {
                     height: 500,
                     interpolateNulls: true
                 };
-                var chart = new google.charts.Line(document.getElementById('temperature'));
+                var chart = new google.charts.Line(document.getElementById('chart-add'));
                 chart.draw(data, options);
             }
         },
         error: function() {
-            $("#temperature").append("<h3>An error occurred. Please try again.</h3>");
+            document.getElementById("chart").innerHTML = "<h3>An error occurred. Please try again.</h3>";
         }
     });
 }
 
-function showMoisture() {
+function moistureChart() {
     $("#current_readings").hide();
-    $("#temperature").hide();
-    $("#moisture").show();
-    $("#salinity").hide();
+    $("#chart").show();
+    reading = "moisture";
+    var date1 = new Date($('#date1').data("DateTimePicker").date()["_d"]);
+    var date2 = new Date($('#date2').data("DateTimePicker").date()["_d"]);
+    var u = "../application/getmoisturedata.php?s='"
+        + getDateString(date1) + "'&e='"
+        + getDateString(date2) + "'";
     $.ajax({
         type: 'POST',
-        url: '../application/getmoisturedata.php',
+        url: u,
         cache: false,
         success: function(data){
             if (data == "") {
-                $("#moisture").append("<h3>There is no data for the specified date range.</h3>");
+                document.getElementById("chart-add").innerHTML = "<h3>There is no data for the specified date range.</h3>";
             }
             else {
                 json = JSON.parse(data);
@@ -156,34 +217,38 @@ function showMoisture() {
                 var options = {
                     chart: {
                         title: 'Moisture',
-                        subtitle: 'in some kind of unit'
+                        subtitle: 'in some unit'
                     },
                     width: 900,
                     height: 500,
                     interpolateNulls: true
                 };
-                var chart = new google.charts.Line(document.getElementById('moisture'));
+                var chart = new google.charts.Line(document.getElementById('chart-add'));
                 chart.draw(data, options);
             }
         },
         error: function() {
-            $("#moisture").append("<h3>An error occurred. Please try again.</h3>");
+            document.getElementById("chart").innerHTML = "<h3>An error occurred. Please try again.</h3>";
         }
     });
 }
 
-function showSalinity() {
+function salinityChart() {
     $("#current_readings").hide();
-    $("#temperature").hide();
-    $("#moisture").hide();
-    $("#salinity").show();
+    $("#chart").show();
+    reading = "salinity";
+    var date1 = new Date($('#date1').data("DateTimePicker").date()["_d"]);
+    var date2 = new Date($('#date2').data("DateTimePicker").date()["_d"]);
+    var u = "../application/getsalinitydata.php?s='"
+        + getDateString(date1) + "'&e='"
+        + getDateString(date2) + "'";
     $.ajax({
         type: 'POST',
-        url: '../application/getsalinitydata.php',
+        url: u,
         cache: false,
         success: function(data){
             if (data == "") {
-                $("#salinity").append("<h3>There is no data for the specified date range.</h3>");
+                document.getElementById("chart-add").innerHTML = "<h3>There is no data for the specified date range.</h3>";
             }
             else {
                 json = JSON.parse(data);
@@ -227,18 +292,18 @@ function showSalinity() {
                 var options = {
                     chart: {
                         title: 'Salinity',
-                        subtitle: 'in some kind of measurement'
+                        subtitle: 'in some unit'
                     },
                     width: 900,
                     height: 500,
                     interpolateNulls: true
                 };
-                var chart = new google.charts.Line(document.getElementById('salinity'));
+                var chart = new google.charts.Line(document.getElementById('chart-add'));
                 chart.draw(data, options);
             }
         },
         error: function() {
-            $("#salinity").append("<h3>An error occurred. Please try again.</h3>");
+            document.getElementById("chart").innerHTML = "<h3>An error occurred. Please try again.</h3>";
         }
     });
 }

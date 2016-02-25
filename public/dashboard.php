@@ -25,6 +25,8 @@ include "../application/header.php";
     <link href="../application/dist/css/sb-admin-2.css" rel="stylesheet">
     <link href="../application/dist/css/dirt.css" rel="stylesheet">
     <link href="../application/dist/css/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="../library/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../library/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 
     <!-- Custom Fonts -->
     <link href="../library/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -40,7 +42,7 @@ include "../application/header.php";
 
 </head>
 
-<body onload="showCurrentReadings()">
+<body onload="showCurrentReadings(); initializeDatepickers();">
 
     <div id="wrapper">
 
@@ -76,13 +78,13 @@ include "../application/header.php";
                             <a class="clickable" onclick="showCurrentReadings()"><i class="fa fa-dashboard fa-fw"></i> Current Readings</a>
                         </li>
                         <li>
-                            <a class="clickable" onclick="showTemperature()"><i class="fa fa-sun-o fa-fw"></i> Temperature</a>
+                            <a class="clickable" onclick="temperatureChart()"><i class="fa fa-sun-o fa-fw"></i> Temperature</a>
                         </li>
                         <li>
-                            <a class="clickable" onclick="showMoisture()"><i class="fa fa-cloud fa-fw"></i> Moisture</a>
+                            <a class="clickable" onclick="moistureChart()"><i class="fa fa-cloud fa-fw"></i> Moisture</a>
                         </li>
                         <li>
-                            <a class="clickable" onclick="showSalinity()"><i class="fa fa-flask fa-fw"></i> Salinity</a>
+                            <a class="clickable" onclick="salinityChart()"><i class="fa fa-flask fa-fw"></i> Salinity</a>
                         </li>
                     </ul>
                 </div>
@@ -113,9 +115,33 @@ include "../application/header.php";
                 <br>
                 <div id="probe_readings"></div>
             </div>
-            <div class="container-fluid" id="temperature"></div>
-            <div class="container-fluid" id="moisture"></div>
-            <div class="container-fluid" id="salinity"></div>
+            <div class="container-fluid" id="chart">
+                <div id="chart-add"></div>
+                <div id="dates">
+                    <div class="container">
+                        <div class='col-md-5'>
+                            <div class="form-group">
+                                <div class='input-group date' id='date1'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-5'>
+                            <div class="form-group">
+                                <div class='input-group date' id='date2'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -134,6 +160,8 @@ include "../application/header.php";
     <script src="../application/dist/js/sb-admin-2.js"></script>
     <script src="../application/dist/js/dirt.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="../library/bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="../library/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 
 </body>
 
