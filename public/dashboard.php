@@ -113,7 +113,9 @@ include "../application/header.php";
                     </div>
                 </div>
                 <br>
-                <div id="probe_readings"></div>
+                <div id="probe_readings">
+                    
+                </div>
             </div>
             <div class="container-fluid" id="chart">
                 <div id="chart-add"></div>

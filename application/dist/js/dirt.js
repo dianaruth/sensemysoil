@@ -71,6 +71,27 @@ function showReadings(probeNum) {
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 document.getElementById("probe_readings").innerHTML = xmlhttp.responseText;
+                var lastChecked = document.getElementsByClassName("reading-time");
+                for (var i = 0; i < lastChecked.length; i++) {
+                    lastChecked[i].innerHTML = "";
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '../application/getrecentreadingtime.php',
+                    cache: false,
+                    success: function(data) {
+                        json = JSON.parse(data);
+                        var date = new Date(json["reading_time"]);
+                        var dateString = date.toDateString() + " at " + date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+                        var lastChecked = document.getElementsByClassName("reading-time");
+                        for (var i = 0; i < lastChecked.length; i++) {
+                            lastChecked[i].innerHTML = dateString;
+                        }
+                    },
+                    error: function(data) {
+                        document.getElementById("chart").innerHTML = "<h3>An error occurred. Please try again.</h3>";
+                    }
+                });
             }
         };
         xmlhttp.open("GET", "../application/getreadings.php?q="+probeNum,true);
