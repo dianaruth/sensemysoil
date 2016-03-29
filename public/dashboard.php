@@ -42,7 +42,7 @@ include "../application/header.php";
 
 </head>
 
-<body onload="showCurrentReadings(); initializeDatepickers();">
+<body onload="showReadings(1); initializeDatepickers();">
 
     <div id="wrapper">
 
@@ -104,7 +104,6 @@ include "../application/header.php";
                     <div class="col-lg-offset-1 col-lg-2 col-lg-offset-9">
                         <label>Select Probe</label>
                         <select class="form-control" name="probes" onchange="showReadings(this.value)">
-                            <option value="">Select a probe:</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -114,13 +113,16 @@ include "../application/header.php";
                 </div>
                 <br>
                 <div id="probe_readings">
-                    
+
                 </div>
             </div>
             <div class="container-fluid" id="chart">
                 <div id="chart-add"></div>
                 <div id="dates">
                     <div class="container">
+                        <div class="row">
+                            <h4>Select a date range:</h4>
+                        </div>
                         <div class='col-md-5'>
                             <div class="form-group">
                                 <div class='input-group date' id='date1'>

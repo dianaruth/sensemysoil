@@ -1,7 +1,3 @@
-#chart {
-    padding-top: 40px;
-}
-
 .dropdown-menu form li a {
     display: block;
     clear: both;
@@ -11,7 +7,7 @@
     cursor: pointer;
 }
 
-#temperature, #moisture, #salinity {
+#chart-add {
     padding-top: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 15px;
 }

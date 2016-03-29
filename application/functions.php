@@ -9,7 +9,7 @@ function passwordEncrypt($password) {
     $hash_format = "$2y$10$";
     $salt_length = 22;
     $salt = generateSalt($salt_length);
-    $format_and_salt - $hash_format . $salt;
+    $format_and_salt = $hash_format . $salt;
     $hash = crypt($password, $format_and_salt);
     return $hash;
 }
