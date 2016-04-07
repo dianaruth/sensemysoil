@@ -29,9 +29,6 @@ function initializeDatepickers() {
         else if (reading == "moisture") {
             moistureChart();
         }
-        else if (reading == "salinity") {
-            salinityChart();
-        }
     });
     $("#date2").on("dp.hide", function (e) {
         $('#date2').data("DateTimePicker").date(e.date);
@@ -40,9 +37,6 @@ function initializeDatepickers() {
         }
         else if (reading == "moisture") {
             moistureChart();
-        }
-        else if (reading == "salinity") {
-            salinityChart();
         }
     });
 }
@@ -238,82 +232,7 @@ function moistureChart() {
                 var options = {
                     chart: {
                         title: 'Moisture',
-                        subtitle: 'in some unit'
-                    },
-                    width: 900,
-                    height: 500,
-                    interpolateNulls: true
-                };
-                var chart = new google.charts.Line(document.getElementById('chart-add'));
-                chart.draw(data, options);
-            }
-        },
-        error: function() {
-            document.getElementById("chart").innerHTML = "<h3>An error occurred. Please try again.</h3>";
-        }
-    });
-}
-
-function salinityChart() {
-    $("#current_readings").hide();
-    $("#chart").show();
-    reading = "salinity";
-    var date1 = new Date($('#date1').data("DateTimePicker").date()["_d"]);
-    var date2 = new Date($('#date2').data("DateTimePicker").date()["_d"]);
-    var u = "../application/getsalinitydata.php?s='"
-        + getDateString(date1) + "'&e='"
-        + getDateString(date2) + "'";
-    $.ajax({
-        type: 'POST',
-        url: u,
-        cache: false,
-        success: function(data){
-            if (data == "") {
-                document.getElementById("chart-add").innerHTML = "<h3>There is no data for the specified date range.</h3>";
-            }
-            else {
-                json = JSON.parse(data);
-                // create json object to hold temperatures for each reading time
-                var chart_json = {};
-                for (var i = 0; i < json.length; i++) {
-                    if (chart_json.hasOwnProperty(json[i]["reading_time"])) {
-                        chart_json[json[i]["reading_time"]]["salinity"].push(parseFloat(json[i]["salinity"]));
-                        chart_json[json[i]["reading_time"]]["probe"].push(parseInt(json[i]["probe"]));
-                    }
-                    else {  // create new entry for new reading time
-                        chart_json[json[i]["reading_time"]] = {};
-                        chart_json[json[i]["reading_time"]]["salinity"] = [parseFloat(json[i]["salinity"])];
-                        chart_json[json[i]["reading_time"]]["probe"] = [parseInt(json[i]["probe"])];
-                    }
-                }
-                var data = new google.visualization.DataTable();
-                data.addColumn('date', 'Time');
-                data.addColumn('number', 'Probe 1');
-                data.addColumn('number', 'Probe 2');
-                data.addColumn('number', 'Probe 3');
-                data.addColumn('number', 'Probe 4');
-                var temp;
-                var rows = [];
-                for (var time in chart_json) {
-                    var diff = 1;
-                    temp = [];
-                    temp.push(new Date(time));
-                    for (var i = 1; i <= 4; i++) {
-                        if (chart_json[time]["probe"][i-diff] == i) {
-                            temp.push(chart_json[time]["salinity"][i-diff]);
-                        }
-                        else {
-                            temp.push(null);
-                            diff++;
-                        }
-                    }
-                    rows.push(temp);
-                }
-                data.addRows(rows);
-                var options = {
-                    chart: {
-                        title: 'Salinity',
-                        subtitle: 'in some unit'
+                        subtitle: 'in % saturation'
                     },
                     width: 900,
                     height: 500,

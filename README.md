@@ -7,4 +7,4 @@ Some features:
 - connection to MySQL database
 - Bootstrap SB Admin theme
 - secure login with encrypted passwords
-- Google Charts library used for temperature, moisture, and salinity charts
+- Google Charts library used for temperature and moisture charts

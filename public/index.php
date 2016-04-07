@@ -20,7 +20,7 @@ if(!session_id()){
             <?php if ($_SESSION['login_error']) echo "<div class=\"alert alert-danger\"><strong>Username/Password incorrect</strong></div>"; ?>
             <form action="../application/login.php" method="post">
                 <div class="input-group">
-                    <span class="input-group-addon<?php if ($_SESSION['login_error']) echo " has-error"; ?>" id="basic-addon1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+                    <span class="input-group-addon<?php //if ($_SESSION['login_error']) echo " has-error"; ?>" id="basic-addon1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
                     <input name="username" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" required>
                 </div>
                 <div class="input-group">
@@ -37,8 +37,8 @@ if(!session_id()){
 
         <!-- Bootstrap Core JavaScript -->
         <script src="../library/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        
+
         <script src="../application/dist/js/dirt.js"></script>
-        
+
     </body>
 </html>

@@ -83,9 +83,6 @@ include "../application/header.php";
                         <li>
                             <a class="clickable" onclick="moistureChart()"><i class="fa fa-cloud fa-fw"></i> Moisture</a>
                         </li>
-                        <li>
-                            <a class="clickable" onclick="salinityChart()"><i class="fa fa-flask fa-fw"></i> Salinity</a>
-                        </li>
                     </ul>
                 </div>
             </div>

@@ -25,6 +25,8 @@ else {
     $statement->execute();
     $db = null;
     $_SESSION['username'] = $username;
+    $_SESSION['first_name'] = $firstName;
+    $_SESSION['last_name'] = $lastName;
     $_SESSION['newuser_error'] = False;
     header("Location: ../public/dashboard.php");
 }
