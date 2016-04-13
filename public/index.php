@@ -20,7 +20,7 @@ if(!session_id()){
             <?php if ($_SESSION['login_error']) echo "<div class=\"alert alert-danger\"><strong>Username/Password incorrect</strong></div>"; ?>
             <form action="../application/login.php" method="post">
                 <div class="input-group">
-                    <span class="input-group-addon<?php //if ($_SESSION['login_error']) echo " has-error"; ?>" id="basic-addon1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+                    <span class="input-group-addon<?php if ($_SESSION['login_error']) echo " has-error"; ?>" id="basic-addon1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
                     <input name="username" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" required>
                 </div>
                 <div class="input-group">
@@ -29,6 +29,9 @@ if(!session_id()){
                 </div>
                 <div class="form-group">
                     <input type="submit" id="login-button" class="btn btn-primary" value="Log In">
+                </div>
+                <div class="form-group">
+                    <p>Not signed up yet? <a href="newuser.php" class="btn btn-link" style="padding: 0;">Click here</a> to sign up for Sense My Soil.</p>
                 </div>
             </form>
         </div>
