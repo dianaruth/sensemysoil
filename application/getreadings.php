@@ -8,10 +8,10 @@ $statement->bindParam(':probe', $q);
 $statement->execute();
 if ($readings = $statement->fetch()) {
     echo "<div class='row'><div class='col-lg-6'><div class='panel panel-info'><div class='panel-heading'>Moisture</div><div class='panel-body'><h1>";
-    echo $readings['moisture'];
+    echo $readings['moisture'] . "%";
     echo "</h1></div><div class='panel-footer reading-time'>";
     echo "</div></div></div><div class='col-lg-6'><div class='panel panel-info'><div class='panel-heading'>Temperature</div><div class='panel-body'><h1>";
-    echo $readings['temperature'];
+    echo $readings['temperature'] . "&deg;C";
     echo "</h1></div><div class='panel-footer reading-time'></div></div></div></div>";
 }
 else {

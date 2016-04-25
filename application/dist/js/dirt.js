@@ -157,11 +157,20 @@ function temperatureChart() {
                 var options = {
                     chart: {
                         title: 'Temperature',
-                        subtitle: 'in degrees Fahrenheit'
+                        subtitle: 'degrees Celsius'
                     },
                     width: 900,
                     height: 500,
-                    interpolateNulls: true
+                    interpolateNulls: true,
+                    axes: {
+                        y: {
+                            all: {
+                                format: {
+                                    pattern: 'decimal'
+                                }
+                            }
+                        }
+                    }
                 };
                 var chart = new google.charts.Line(document.getElementById('chart-add'));
                 chart.draw(data, options);
@@ -232,11 +241,20 @@ function moistureChart() {
                 var options = {
                     chart: {
                         title: 'Moisture',
-                        subtitle: 'in % saturation'
+                        subtitle: '% saturation'
                     },
                     width: 900,
                     height: 500,
-                    interpolateNulls: true
+                    interpolateNulls: true,
+                    axes: {
+                        y: {
+                            all: {
+                                format: {
+                                    pattern: 'decimal'
+                                }
+                            }
+                        }
+                    }
                 };
                 var chart = new google.charts.Line(document.getElementById('chart-add'));
                 chart.draw(data, options);
